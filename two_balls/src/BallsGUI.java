@@ -48,14 +48,6 @@ public class BallsGUI extends Application implements Observer{
         start.setOnAction(event -> model.simulateTime());
         hb.getChildren().add(start);
 
-        Button decrVel = new Button("- velocity");
-        decrVel.setOnAction(event -> model.decrVel());
-        hb.getChildren().add(decrVel);
-
-        Button incrVel = new Button("+ velocity");
-        incrVel.setOnAction(event -> model.incrVel());
-        hb.getChildren().add(incrVel);
-
         vb.getChildren().add(hb);
         vb.getChildren().add(txt1);
         vb.getChildren().add(txt2);
@@ -91,8 +83,8 @@ public class BallsGUI extends Application implements Observer{
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                txt1.setText("Ball 1:  X: "+model.getX1()+"; Y: "+model.getY1()+";  X velocity: "+model.Xvelocity1+"; Y velocity: "+model.Yvelocity1);
-                txt2.setText("Ball 2:  X: "+model.getX2()+"; Y: "+model.getY2()+";  X velocity: "+model.Xvelocity2+"; Y velocity: "+model.Yvelocity2);
+                txt1.setText("Ball 1:  X: "+model.getX1()+"; Y: "+model.getY1());
+                txt2.setText("Ball 2:  X: "+model.getX2()+"; Y: "+model.getY2());
 
                 circle1.setCenterX(model.getX1());
                 circle1.setCenterY(model.getY1());
@@ -104,14 +96,14 @@ public class BallsGUI extends Application implements Observer{
 
                 model.simulateTime();
 
-                try{
-                    Thread.sleep(model.waitTime);
-                }
-                catch (InterruptedException e){
-
-                }
+//                try{
+//                    Thread.sleep(model.waitTime);
+//                }
+//                catch (InterruptedException e){
+//
+//                }
             }
-        }, 0, 5);
+        }, 0, 25);
 
 
 

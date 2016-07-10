@@ -1,16 +1,19 @@
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Observable;
+import java.util.Random;
+
 import javafx.scene.paint.Paint;
 
 /**
  * Created by Lord Daniel on 7/10/2016.
  */
 public class BallsModel extends Observable {
-    public int Xvelocity1 = 10;
-    public int Yvelocity1 = 10;
-    public int Xvelocity2 = -10;
-    public int Yvelocity2 = 10;
+    private int speed = 5;
+    public double Xvelocity1 = speed;
+    public double Yvelocity1 = speed;
+    public double Xvelocity2 = -1*speed;
+    public double Yvelocity2 = speed;
     private int x1;
     private int y1;
     private int x2;
@@ -18,7 +21,7 @@ public class BallsModel extends Observable {
     private int maxX = 700;
     private int maxY = 500;
     private boolean flag = true;
-    public int radius = 30;
+    public int radius = 50;
     private int colorIndex1;
     private int colorIndex2;
     public int waitTime;
@@ -27,10 +30,10 @@ public class BallsModel extends Observable {
 
     public BallsModel(){
         this.waitTime=20;
-        this.x1 = 200;
-        this.y1 = 100;
-        this.x2 = 150;
-        this.y2 = 200;
+        this.x1 = radius+20 + (int)(Math.random() * maxX-radius-20);
+        this.y1 = radius+20 + (int)(Math.random() * maxY-radius-20);
+        this.x2 = radius+20 + (int)(Math.random() * maxX-radius-20);
+        this.y2 = radius+20 + (int)(Math.random() * maxY-radius-20);
         this.colorIndex1 = 0;
         this.colorIndex2 = 3;
 
@@ -94,7 +97,9 @@ public class BallsModel extends Observable {
     }
 
     public void decrVel(){
-        waitTime++;
+        if(waitTime<900) {
+            waitTime++;
+        }
     }
 
     public void incrVel(){
@@ -162,6 +167,21 @@ public class BallsModel extends Observable {
         }
 
         //Collision between balls
+        double d = Math.sqrt(Math.pow((x2-x1),2) + Math.pow((y2-y1),2));
+        if(d - 2*this.radius < 2){
+            System.out.println("Collision!");
+            double th;
+            if(x1==x2){
+                th = Math.asin(1);
+            }
+            else {
+                th = Math.atan((y2 - y1) / (x2 - x1));
+            }
+            Xvelocity1 = Xvelocity1*Math.pow(Math.sin(th),2) - (Yvelocity2*Math.sin(th) + Xvelocity2*Math.cos(th))*Math.cos(th);
+            Xvelocity2 = Xvelocity2*Math.pow(Math.sin(th),2) - (Yvelocity1*Math.sin(th) + Xvelocity1*Math.cos(th))*Math.cos(th);
+            Yvelocity1 = Yvelocity1*Math.pow(Math.cos(th),2) - (Yvelocity2*Math.sin(th) + Xvelocity2*Math.cos(th))*Math.sin(th);
+            Yvelocity2 = Yvelocity2*Math.pow(Math.cos(th),2) - (Yvelocity2*Math.sin(th) + Xvelocity2*Math.cos(th))*Math.sin(th);
+        }
 
     }
 
