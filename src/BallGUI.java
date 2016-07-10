@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
@@ -22,6 +23,7 @@ public class BallGUI extends Application implements Observer{
     private BallModel model;
     private Pane canvas;
     private Circle circle;
+    private Scene scene;
     private  Text txt = new Text("0");
 
     @Override
@@ -33,7 +35,7 @@ public class BallGUI extends Application implements Observer{
     @Override
     public void start(Stage stage) {
         Group root = new Group();
-        Scene scene = new Scene(root, model.getMaxX(), model.getMaxY());
+        scene = new Scene(root, model.getMaxX(), model.getMaxY());
         stage.setScene(scene);
         stage.setTitle("Bouncing Ball");
 
@@ -49,12 +51,13 @@ public class BallGUI extends Application implements Observer{
         circle = new Circle(model.radius);
         circle.setCenterX(model.getX());
         circle.setCenterY(model.getY());
+        circle.setFill(Paint.valueOf("#ff0000"));
         canvas.getChildren().add(circle);
 
         vb.getChildren().add(canvas);
 
         scene.setRoot(vb);
-        stage.setResizable(true);
+        stage.setResizable(false);
         stage.show();
 
     }

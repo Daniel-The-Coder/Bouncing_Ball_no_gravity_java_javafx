@@ -7,8 +7,8 @@ import javafx.scene.paint.Paint;
  * Created by Lord Daniel on 7/10/2016.
  */
 public class BallModel extends Observable {
-    private int Xvelocity = 10;
-    private int Yvelocity = 10;
+    private int Xvelocity = 8;
+    private int Yvelocity = 8;
     private int x;
     private int y;
     private int maxX = 1000;
