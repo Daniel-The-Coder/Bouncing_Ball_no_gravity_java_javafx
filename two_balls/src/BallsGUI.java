@@ -91,8 +91,8 @@ public class BallsGUI extends Application implements Observer{
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                txt1.setText("Ball 1:  X: "+model.getX1()+"; Y: "+model.getY1()+";   speed: "+model.speed+";   X velocity: "+model.Xdirection1*model.speed+"; Y velocity: "+model.Ydirection1*model.speed);
-                txt2.setText("Ball 2:  X: "+model.getX2()+"; Y: "+model.getY2()+";   speed: "+model.speed+";   X velocity: "+model.Xdirection2*model.speed+"; Y velocity: "+model.Ydirection2*model.speed);
+                txt1.setText("Ball 1:  X: "+model.getX1()+"; Y: "+model.getY1()+";  X velocity: "+model.Xvelocity1+"; Y velocity: "+model.Yvelocity1);
+                txt2.setText("Ball 2:  X: "+model.getX2()+"; Y: "+model.getY2()+";  X velocity: "+model.Xvelocity2+"; Y velocity: "+model.Yvelocity2);
 
                 circle1.setCenterX(model.getX1());
                 circle1.setCenterY(model.getY1());
@@ -103,8 +103,15 @@ public class BallsGUI extends Application implements Observer{
                 circle2.setFill(model.getColor2());
 
                 model.simulateTime();
+
+                try{
+                    Thread.sleep(model.waitTime);
+                }
+                catch (InterruptedException e){
+
+                }
             }
-        }, 0, 20);
+        }, 0, 5);
 
 
 

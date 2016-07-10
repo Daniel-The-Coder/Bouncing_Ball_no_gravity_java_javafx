@@ -7,11 +7,10 @@ import javafx.scene.paint.Paint;
  * Created by Lord Daniel on 7/10/2016.
  */
 public class BallsModel extends Observable {
-    public int Xdirection1 = 1;
-    public int Ydirection1 = 1;
-    public int Xdirection2 = -1;
-    public int Ydirection2 = 1;
-    public int speed = 8;
+    public int Xvelocity1 = 10;
+    public int Yvelocity1 = 10;
+    public int Xvelocity2 = -10;
+    public int Yvelocity2 = 10;
     private int x1;
     private int y1;
     private int x2;
@@ -22,10 +21,12 @@ public class BallsModel extends Observable {
     public int radius = 30;
     private int colorIndex1;
     private int colorIndex2;
+    public int waitTime;
 
     private ArrayList<Paint> colors;
 
     public BallsModel(){
+        this.waitTime=20;
         this.x1 = 200;
         this.y1 = 100;
         this.x2 = 150;
@@ -93,14 +94,15 @@ public class BallsModel extends Observable {
     }
 
     public void decrVel(){
-        if(this.speed > 0){
-            speed--;
-        }
+        waitTime++;
     }
 
     public void incrVel(){
-        speed++;
+        if(this.waitTime>0){
+            waitTime--;
+        }
     }
+
 
     public void simulateTime(){
         //Collision with wall
@@ -108,51 +110,51 @@ public class BallsModel extends Observable {
         //update velocity based on position
         //X velocity
         if(this.x1 + this.radius >= this.getMaxX()){
-            this.Xdirection1 *= -1;
+            this.Xvelocity1 *= -1;
             nextColor1();
         }
         else if(this.x1 - this.radius <= 0){
-            this.Xdirection1 *= -1;
+            this.Xvelocity1 *= -1;
             nextColor1();
         }
         //Y velocity
         if(this.y1 + 2*this.radius >= this.getMaxY()){
-            this.Ydirection1 *= -1;
+            this.Yvelocity1 *= -1;
             nextColor1();
         }
         else if(this.y1 - this.radius <= 0){
-            this.Ydirection1 *= -1;
+            this.Yvelocity1 *= -1;
             nextColor1();
         }
 
         //update position based on velocity
-        this.x1 += this.Xdirection1*speed;
-        this.y1 += this.Ydirection1*speed;
+        this.x1 += this.Xvelocity1;
+        this.y1 += this.Yvelocity1;
 
         //Ball 2
         //update velocity based on position
         //X velocity
         if(this.x2 + this.radius >= this.getMaxX()){
-            this.Xdirection2 *= -1;
+            this.Xvelocity2 *= -1;
             nextColor2();
         }
         else if(this.x2 - this.radius <= 0){
-            this.Xdirection2 *= -1;
+            this.Xvelocity2 *= -1;
             nextColor2();
         }
         //Y velocity
         if(this.y2 + 2*this.radius >= this.getMaxY()){
-            this.Ydirection2 *= -1;
+            this.Yvelocity2 *= -1;
             nextColor2();
         }
         else if(this.y2 - this.radius <= 0){
-            this.Ydirection2 *= -1;
+            this.Yvelocity2 *= -1;
             nextColor2();
         }
 
         //update position based on velocity
-        this.x2 += this.Xdirection2*speed;
-        this.y2 += this.Ydirection2*speed;
+        this.x2 += this.Xvelocity2;
+        this.y2 += this.Yvelocity2;
         if(flag == true) {
             setChanged();
             notifyObservers();
