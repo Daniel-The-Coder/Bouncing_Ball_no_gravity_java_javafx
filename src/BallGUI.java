@@ -69,6 +69,7 @@ public class BallGUI extends Application implements Observer{
                 txt.setText("X: "+model.getX()+"; Y: "+model.getY());
                 circle.setCenterX(model.getX());
                 circle.setCenterY(model.getY());
+                circle.setFill(model.getColor());
                 System.out.println(model.getX()+" "+model.getY());
                 model.simulateTime();
             }
