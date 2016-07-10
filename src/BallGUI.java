@@ -5,10 +5,7 @@ import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
@@ -25,7 +22,6 @@ public class BallGUI extends Application implements Observer{
     private BallModel model;
     private Pane canvas;
     private Circle circle;
-    private int radius = 30;
     private  Text txt = new Text("0");
 
     @Override
@@ -50,7 +46,7 @@ public class BallGUI extends Application implements Observer{
         vb.getChildren().add(txt);
 
         canvas = new Pane();
-        circle = new Circle(radius);
+        circle = new Circle(model.radius);
         circle.setCenterX(model.getX());
         circle.setCenterY(model.getY());
         canvas.getChildren().add(circle);
@@ -70,16 +66,15 @@ public class BallGUI extends Application implements Observer{
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                txt.setText(""+model.getX());
+                txt.setText("X: "+model.getX()+"; Y: "+model.getY());
                 circle.setCenterX(model.getX());
                 circle.setCenterY(model.getY());
                 System.out.println(model.getX()+" "+model.getY());
                 model.simulateTime();
             }
-        }, 0, 50);
+        }, 0, 20);
 
 
-        //model.simulateTime();
 
     }
 
