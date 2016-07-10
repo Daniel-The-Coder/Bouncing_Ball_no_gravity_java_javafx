@@ -71,7 +71,7 @@ public class BallsGUI extends Application implements Observer{
         circle2 = new Circle(model.radius);
         circle2.setCenterX(model.getX2());
         circle2.setCenterY(model.getY2());
-        circle2.setFill(Paint.valueOf("#ff0000"));
+        circle2.setFill(Paint.valueOf("#0000ff"));
 
         canvas.getChildren().add(circle1);
         canvas.getChildren().add(circle2);
@@ -98,8 +98,8 @@ public class BallsGUI extends Application implements Observer{
                 circle1.setCenterY(model.getY1());
                 circle1.setFill(model.getColor1());
 
-                circle2.setCenterX(model.getX1());
-                circle2.setCenterY(model.getY1());
+                circle2.setCenterX(model.getX2());
+                circle2.setCenterY(model.getY2());
                 circle2.setFill(model.getColor2());
 
                 model.simulateTime();

@@ -9,7 +9,7 @@ import javafx.scene.paint.Paint;
 public class BallsModel extends Observable {
     public int Xdirection1 = 1;
     public int Ydirection1 = 1;
-    public int Xdirection2 = 1;
+    public int Xdirection2 = -1;
     public int Ydirection2 = 1;
     public int speed = 8;
     private int x1;
@@ -26,10 +26,10 @@ public class BallsModel extends Observable {
     private ArrayList<Paint> colors;
 
     public BallsModel(){
-        this.x1 = 50;
+        this.x1 = 200;
         this.y1 = 100;
-        this.x2 = 200;
-        this.y2 = 50;
+        this.x2 = 150;
+        this.y2 = 200;
         this.colorIndex1 = 0;
         this.colorIndex2 = 3;
 
@@ -51,11 +51,11 @@ public class BallsModel extends Observable {
     }
 
     public int getX2(){
-        return this.x1;
+        return this.x2;
     }
 
     public int getY2(){
-        return this.y1;
+        return this.y2;
     }
 
     public  int getMaxX(){
