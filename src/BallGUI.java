@@ -41,10 +41,20 @@ public class BallGUI extends Application implements Observer{
 
         VBox vb = new VBox();
 
+        HBox hb = new HBox();
         Button start = new Button("Start");
         start.setOnAction(event -> model.simulateTime());
-        vb.getChildren().add(start);
+        hb.getChildren().add(start);
 
+        Button decrVel = new Button("- velocity");
+        decrVel.setOnAction(event -> model.decrVel());
+        hb.getChildren().add(decrVel);
+
+        Button incrVel = new Button("+ velocity");
+        incrVel.setOnAction(event -> model.incrVel());
+        hb.getChildren().add(incrVel);
+
+        vb.getChildren().add(hb);
         vb.getChildren().add(txt);
 
         canvas = new Pane();
@@ -69,7 +79,7 @@ public class BallGUI extends Application implements Observer{
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                txt.setText("X: "+model.getX()+"; Y: "+model.getY());
+                txt.setText("X: "+model.getX()+"; Y: "+model.getY()+";   speed: "+model.speed+";   X velocity: "+model.Xdirection*model.speed+"; Y velocity: "+model.Ydirection*model.speed);
                 circle.setCenterX(model.getX());
                 circle.setCenterY(model.getY());
                 circle.setFill(model.getColor());
