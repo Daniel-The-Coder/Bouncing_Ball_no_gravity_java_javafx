@@ -22,9 +22,11 @@ import java.util.*;
 public class BallsGUI extends Application implements Observer{
     private BallsModel model;
     private Pane canvas;
-    private Circle circle;
+    private Circle circle1;
+    private Circle circle2;
     private Scene scene;
-    private  Text txt = new Text("0");
+    private  Text txt1 = new Text("");
+    private  Text txt2 = new Text("");
 
     @Override
     public void init() throws Exception{
@@ -55,14 +57,24 @@ public class BallsGUI extends Application implements Observer{
         hb.getChildren().add(incrVel);
 
         vb.getChildren().add(hb);
-        vb.getChildren().add(txt);
+        vb.getChildren().add(txt1);
+        vb.getChildren().add(txt2);
+
+        System.out.println(model.getX1()+" "+model.getX2()+"\n"+model.getY1()+" "+model.getY2());
 
         canvas = new Pane();
-        circle = new Circle(model.radius);
-        circle.setCenterX(model.getX());
-        circle.setCenterY(model.getY());
-        circle.setFill(Paint.valueOf("#ff0000"));
-        canvas.getChildren().add(circle);
+        circle1 = new Circle(model.radius);
+        circle1.setCenterX(model.getX1());
+        circle1.setCenterY(model.getY1());
+        circle1.setFill(Paint.valueOf("#ff0000"));
+
+        circle2 = new Circle(model.radius);
+        circle2.setCenterX(model.getX2());
+        circle2.setCenterY(model.getY2());
+        circle2.setFill(Paint.valueOf("#ff0000"));
+
+        canvas.getChildren().add(circle1);
+        canvas.getChildren().add(circle2);
 
         vb.getChildren().add(canvas);
 
@@ -79,11 +91,17 @@ public class BallsGUI extends Application implements Observer{
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                txt.setText("X: "+model.getX()+"; Y: "+model.getY()+";   speed: "+model.speed+";   X velocity: "+model.Xdirection*model.speed+"; Y velocity: "+model.Ydirection*model.speed);
-                circle.setCenterX(model.getX());
-                circle.setCenterY(model.getY());
-                circle.setFill(model.getColor());
-                System.out.println(model.getX()+" "+model.getY());
+                txt1.setText("Ball 1:  X: "+model.getX1()+"; Y: "+model.getY1()+";   speed: "+model.speed+";   X velocity: "+model.Xdirection1*model.speed+"; Y velocity: "+model.Ydirection1*model.speed);
+                txt2.setText("Ball 2:  X: "+model.getX2()+"; Y: "+model.getY2()+";   speed: "+model.speed+";   X velocity: "+model.Xdirection2*model.speed+"; Y velocity: "+model.Ydirection2*model.speed);
+
+                circle1.setCenterX(model.getX1());
+                circle1.setCenterY(model.getY1());
+                circle1.setFill(model.getColor1());
+
+                circle2.setCenterX(model.getX1());
+                circle2.setCenterY(model.getY1());
+                circle2.setFill(model.getColor2());
+
                 model.simulateTime();
             }
         }, 0, 20);
