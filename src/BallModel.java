@@ -12,8 +12,8 @@ public class BallModel extends Observable {
     public int speed = 8;
     private int x;
     private int y;
-    private int maxX = 1000;
-    private int maxY = 700;
+    private int maxX = 700;
+    private int maxY = 500;
     private boolean flag = true;
     public int radius = 30;
     private int colorIndex;
