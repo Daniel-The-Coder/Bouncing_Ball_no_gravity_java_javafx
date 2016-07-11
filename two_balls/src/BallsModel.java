@@ -9,7 +9,7 @@ import javafx.scene.paint.Paint;
  * Created by Lord Daniel on 7/10/2016.
  */
 public class BallsModel extends Observable {
-    private int speed = 4;
+    private int speed = 7;
     public double Xvelocity1 = speed;
     public double Yvelocity1 = speed;
     public double Xvelocity2 = -1*speed;
@@ -176,19 +176,23 @@ public class BallsModel extends Observable {
 
         //Collision between balls
         double d = Math.sqrt(Math.pow((x2-x1),2) + Math.pow((y2-y1),2));
-        if(d - 2*this.radius < 1){
+        if(Math.abs(d - 2*this.radius) < 4 ){
             System.out.println("Collision!");
             double th;
             if(x1==x2){
+                System.out.println("check 1");
                 th = Math.asin(1);
             }
             else {
-                th = Math.atan((y2 - y1) / (x2 - x1));
+                th = Math.atan((float)(y2 - y1) / (float)(x2 - x1));
             }
+            System.out.println(Xvelocity1 +" "+ Xvelocity2+" "+ Yvelocity1+" "+ Yvelocity2);
             Xvelocity1 = Xvelocity1*Math.pow(Math.sin(th),2) - (Yvelocity2*Math.sin(th) + Xvelocity2*Math.cos(th))*Math.cos(th);
             Xvelocity2 = Xvelocity2*Math.pow(Math.sin(th),2) - (Yvelocity1*Math.sin(th) + Xvelocity1*Math.cos(th))*Math.cos(th);
             Yvelocity1 = Yvelocity1*Math.pow(Math.cos(th),2) - (Yvelocity2*Math.sin(th) + Xvelocity2*Math.cos(th))*Math.sin(th);
             Yvelocity2 = Yvelocity2*Math.pow(Math.cos(th),2) - (Yvelocity1*Math.sin(th) + Xvelocity1*Math.cos(th))*Math.sin(th);
+            System.out.println(Xvelocity1 +" "+ Xvelocity2+" "+ Yvelocity1+" "+ Yvelocity2);
+            System.out.println("############################################");
         }
 
     }
