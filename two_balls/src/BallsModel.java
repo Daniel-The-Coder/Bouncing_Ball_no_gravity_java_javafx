@@ -9,19 +9,19 @@ import javafx.scene.paint.Paint;
  * Created by Lord Daniel on 7/10/2016.
  */
 public class BallsModel extends Observable {
-    private int speed = 5;
+    private int speed = 4;
     public double Xvelocity1 = speed;
     public double Yvelocity1 = speed;
     public double Xvelocity2 = -1*speed;
     public double Yvelocity2 = speed;
-    private int x1;
-    private int y1;
-    private int x2;
-    private int y2;
+    private int x1 = 0;
+    private int y1 = 0;
+    private int x2 = 0;
+    private int y2 = 0;
     private int maxX = 700;
     private int maxY = 500;
     private boolean flag = true;
-    public int radius = 50;
+    public int radius = 40;
     private int colorIndex1;
     private int colorIndex2;
     public int waitTime;
@@ -30,16 +30,24 @@ public class BallsModel extends Observable {
 
     public BallsModel(){
         this.waitTime=20;
-        this.x1 = radius+20 + (int)(Math.random() * maxX-radius-20);
-        this.y1 = radius+20 + (int)(Math.random() * maxY-radius-20);
-        this.x2 = radius+20 + (int)(Math.random() * maxX-radius-20);
-        this.y2 = radius+20 + (int)(Math.random() * maxY-radius-20);
+        Random r = new Random();
+        double d = Math.sqrt(Math.pow((x2-x1),2) + Math.pow((y2-y1),2));
+        while (d < radius*2 + 20) { // to make sure balls are at least 20 units away from each other
+            this.x1 = r.nextInt(maxX - radius - 20 - radius - 20) + radius + 20;
+            this.y1 = r.nextInt(maxY - radius - 20 - radius - 20) + radius + 20;
+            this.x2 = r.nextInt(maxX - radius - 20 - radius - 20) + radius + 20;
+            this.y2 = r.nextInt(maxY - radius - 20 - radius - 20) + radius + 20;
+            d = Math.sqrt(Math.pow((x2-x1),2) + Math.pow((y2-y1),2));
+        }
         this.colorIndex1 = 0;
         this.colorIndex2 = 3;
 
         this.colors = new ArrayList<>();
         colors.add(Paint.valueOf("#ff0000"));
         colors.add(Paint.valueOf("#0000ff"));
+
+
+
         colors.add(Paint.valueOf("#912cee"));
         colors.add(Paint.valueOf("#00ff00"));
         colors.add(Paint.valueOf("#ff4500"));
@@ -168,7 +176,7 @@ public class BallsModel extends Observable {
 
         //Collision between balls
         double d = Math.sqrt(Math.pow((x2-x1),2) + Math.pow((y2-y1),2));
-        if(d - 2*this.radius < 2){
+        if(d - 2*this.radius < 1){
             System.out.println("Collision!");
             double th;
             if(x1==x2){
@@ -180,7 +188,7 @@ public class BallsModel extends Observable {
             Xvelocity1 = Xvelocity1*Math.pow(Math.sin(th),2) - (Yvelocity2*Math.sin(th) + Xvelocity2*Math.cos(th))*Math.cos(th);
             Xvelocity2 = Xvelocity2*Math.pow(Math.sin(th),2) - (Yvelocity1*Math.sin(th) + Xvelocity1*Math.cos(th))*Math.cos(th);
             Yvelocity1 = Yvelocity1*Math.pow(Math.cos(th),2) - (Yvelocity2*Math.sin(th) + Xvelocity2*Math.cos(th))*Math.sin(th);
-            Yvelocity2 = Yvelocity2*Math.pow(Math.cos(th),2) - (Yvelocity2*Math.sin(th) + Xvelocity2*Math.cos(th))*Math.sin(th);
+            Yvelocity2 = Yvelocity2*Math.pow(Math.cos(th),2) - (Yvelocity1*Math.sin(th) + Xvelocity1*Math.cos(th))*Math.sin(th);
         }
 
     }

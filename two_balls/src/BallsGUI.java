@@ -103,7 +103,7 @@ public class BallsGUI extends Application implements Observer{
 //
 //                }
             }
-        }, 0, 25);
+        }, 0, 20);
 
 
 
